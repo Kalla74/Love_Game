@@ -1,0 +1,47 @@
+.card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, transform 0.1s;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card:hover:not(:disabled) {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.card:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.chosen {
+  border-color: var(--accent);
+  background: rgba(124, 58, 237, 0.1);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.reward {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.4;
+}

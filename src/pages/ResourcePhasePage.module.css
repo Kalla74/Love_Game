@@ -1,0 +1,90 @@
+.page {
+  min-height: 100dvh;
+  background: #0a0a0f;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.round {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.body {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.sub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 13px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.footer {
+  padding: 12px 20px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.waiting {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 40px 20px;
+}
+
+.waitIcon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.waitTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+
+.waitSub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+}

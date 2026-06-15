@@ -23,6 +23,8 @@ export interface Player {
   gold: number
   iron: number
   has_done_resource_phase: boolean
+  has_done_building_phase: boolean
+
 }
 
 export interface Task {

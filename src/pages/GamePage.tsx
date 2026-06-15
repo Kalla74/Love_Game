@@ -1,5 +1,12 @@
+import { useCallback } from 'react'
 import { useRoom } from '../hooks/useRoom'
+import { usePlayer } from '../hooks/usePlayer'
+import { useRoomEvents } from '../hooks/useRealtime'
+import { supabase } from '../lib/supabase'
 import { LoadingSpinner } from '../components/shared/LoadingSpinner'
+import { ResourcePhasePage } from './ResourcePhasePage'
+import { BuildingPhasePage } from './BuildingPhasePage'
+import { WinPage } from './WinPage'
 import styles from './GamePage.module.css'
 
 interface Props {
@@ -8,21 +15,38 @@ interface Props {
   onLeave: () => void
 }
 
-// Placeholder — you'll fill ResourcePhasePage and BuildingPhasePage next
 export function GamePage({ roomId, playerId, onLeave }: Props) {
-  const { room, loading } = useRoom(roomId)
+  const { room, loading: roomLoading, refetch: refetchRoom } = useRoom(roomId)
+  const { player, loading: playerLoading } = usePlayer(playerId)
 
-  if (loading) return <LoadingSpinner label="Spel laden..." />
-  if (!room) return <div className={styles.page}><p style={{ color: '#fff', padding: 20 }}>Kamer niet gevonden.</p></div>
+  const handleRoomEvent = useCallback((eventType: string) => {
+    if (eventType === 'phase_change' || eventType === 'round_advance') {
+      refetchRoom()
+    }
+  }, [refetchRoom])
+
+  useRoomEvents({ roomId, onEvent: handleRoomEvent })
+
+  if (roomLoading || playerLoading) return <LoadingSpinner label="Spel laden..." />
+  if (!room || !player) return <LoadingSpinner label="Spel laden..." />
+
+  if (!room.is_active) return <WinPage roomId={roomId} onLeave={onLeave} />
+
+  if (room.current_phase === 'resource') {
+    return (
+      <ResourcePhasePage
+        room={room}
+        player={player}
+        onPhaseComplete={refetchRoom}
+      />
+    )
+  }
 
   return (
-    <div className={styles.page}>
-      <p style={{ color: '#fff', padding: 20 }}>
-        GamePage — fase {room.fase}, ronde {room.current_round}, fase: {room.current_phase}
-      </p>
-      <button onClick={onLeave} style={{ margin: 20, color: '#fff', background: 'none', border: '1px solid #fff', padding: '8px 16px', borderRadius: 8, cursor: 'pointer' }}>
-        Verlaten
-      </button>
-    </div>
+    <BuildingPhasePage
+      room={room}
+      player={player}
+      onPhaseComplete={refetchRoom}
+    />
   )
 }
