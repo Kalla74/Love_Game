@@ -32,6 +32,7 @@ export function BuildingPhasePage({ room, player, onPhaseComplete }: Props) {
   const [tab, setTab] = useState<Tab>('build')
 
   const currentPlayer = freshPlayer ?? player
+  const opponents = players.filter((p) => p.id !== player.id)
 
   useEffect(() => {
     fetchData()
@@ -51,7 +52,6 @@ export function BuildingPhasePage({ room, player, onPhaseComplete }: Props) {
   async function handleBuild(building: Building) {
     const p = currentPlayer
 
-    // Deduct costs
     const { error } = await supabase
       .from('players')
       .update({
@@ -83,7 +83,6 @@ export function BuildingPhasePage({ room, player, onPhaseComplete }: Props) {
     await refetchPlayer()
     await fetchData()
 
-    // Check win condition
     const newPoints = p.points + building.points_value
     if (checkWin(newPoints)) {
       await supabase.from('rooms').update({ is_active: false }).eq('id', room.id)
@@ -97,7 +96,6 @@ export function BuildingPhasePage({ room, player, onPhaseComplete }: Props) {
       return
     }
 
-    // Update fase if needed
     const maxPoints = Math.max(...players.map((pl) => pl.points), newPoints)
     const newFase = getFaseFromPoints(maxPoints)
     if (newFase !== room.fase) {
@@ -125,7 +123,7 @@ export function BuildingPhasePage({ room, player, onPhaseComplete }: Props) {
           gold: currentPlayer.gold + production.gold,
           iron: currentPlayer.iron + production.iron,
           energy: currentPlayer.energy + production.energy,
-          has_done_building_phase: true,  // <-- alleen dit zetten
+          has_done_building_phase: true,
         })
         .eq('id', player.id)
 
@@ -144,8 +142,6 @@ export function BuildingPhasePage({ room, player, onPhaseComplete }: Props) {
     const allDone = allPlayers?.every((p) => p.has_done_building_phase)
     if (!allDone) return
 
-    // Iedereen is klaar -> reset BEIDE vlaggen voor IEDEREEN in één keer,
-    // en pas DAN de phase/round van de room aan
     await supabase
       .from('players')
       .update({ has_done_resource_phase: false, has_done_building_phase: false })
@@ -177,6 +173,15 @@ export function BuildingPhasePage({ room, player, onPhaseComplete }: Props) {
           <FaseBadge fase={room.fase} />
           <span className={styles.round}>Ronde {room.current_round}</span>
           <PointsBar points={currentPlayer.points} />
+          {opponents.length > 0 && (
+            <div className={styles.opponentScores}>
+              {opponents.map((op) => (
+                <span key={op.id} className={styles.opponentScore}>
+                  {op.world_name}: {op.points} pts
+                </span>
+              ))}
+            </div>
+          )}
         </div>
         <div className={styles.waiting}>
           <div className={styles.waitIcon}>⏳</div>
@@ -193,6 +198,15 @@ export function BuildingPhasePage({ room, player, onPhaseComplete }: Props) {
         <FaseBadge fase={room.fase} />
         <span className={styles.round}>Ronde {room.current_round}</span>
         <PointsBar points={currentPlayer.points} />
+        {opponents.length > 0 && (
+          <div className={styles.opponentScores}>
+            {opponents.map((op) => (
+              <span key={op.id} className={styles.opponentScore}>
+                {op.world_name}: {op.points} pts
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className={styles.tabs}>
@@ -216,6 +230,7 @@ export function BuildingPhasePage({ room, player, onPhaseComplete }: Props) {
             buildings={buildings}
             playerBuildings={playerBuildings}
             player={currentPlayer}
+            currentFase={room.fase}
             onSelect={setSelectedBuilding}
           />
         ) : (

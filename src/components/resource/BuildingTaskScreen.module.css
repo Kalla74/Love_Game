@@ -1,0 +1,223 @@
+.page {
+  min-height: 100dvh;
+  background: #0a0a0f;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.round {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.4);
+}
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+.sub {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 0;
+  line-height: 1.5;
+}
+.empty {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  padding: 32px 0;
+  margin: 0;
+}
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+.sectionSub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.35);
+  margin: 0;
+  line-height: 1.4;
+}
+.faseGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.faseLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.taskCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.taskInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+.taskName {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+.taskDesc {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.4;
+}
+.taskPoints {
+  font-size: 16px;
+  font-weight: 700;
+  color: #a78bfa;
+  white-space: nowrap;
+}
+.ptLabel {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(167, 139, 250, 0.6);
+}
+.conditionalCard {
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.conditionalInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 120px;
+}
+.perAction {
+  font-size: 11px;
+  color: #a78bfa;
+  font-weight: 600;
+}
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.counterBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: background 0.15s;
+}
+.counterBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.counterVal {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  min-width: 24px;
+  text-align: center;
+}
+.conditionalTotal {
+  font-size: 15px;
+  font-weight: 700;
+  color: #a78bfa;
+  white-space: nowrap;
+  min-width: 60px;
+  text-align: right;
+}
+.summary {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+.summaryTotal {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 8px;
+  margin-top: 2px;
+}
+.footer {
+  padding: 12px 20px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.doneBtn {
+  background: #7c3aed;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 14px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+.doneBtn:hover:not(:disabled) {
+  background: #6d28d9;
+}
+.doneBtn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+.doneBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

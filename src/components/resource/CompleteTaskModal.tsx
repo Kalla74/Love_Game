@@ -6,11 +6,26 @@ interface Props {
   onComplete: () => void
   onCancel: () => void
   loading: boolean
+  faseNumber: number
+  clothingTaskName: string
 }
 
-export function CompleteTaskModal({ card, onComplete, onCancel, loading }: Props) {
+export function CompleteTaskModal({
+  card,
+  onComplete,
+  onCancel,
+  loading,
+  faseNumber,
+  clothingTaskName,
+}: Props) {
   const task = card.task
   if (!task) return null
+
+  const isClothingTask = task.name
+    ?.toLowerCase()
+    .includes(clothingTaskName.toLowerCase())
+
+  const energyReward = isClothingTask ? faseNumber : task.energy_reward
 
   return (
     <div className={styles.overlay}>
@@ -19,11 +34,12 @@ export function CompleteTaskModal({ card, onComplete, onCancel, loading }: Props
         <h2 className={styles.title}>{task.name}</h2>
         <p className={styles.desc}>{task.description}</p>
         <div className={styles.reward}>
-          Beloning: <strong>{task.energy_reward} energie</strong>
+          Beloning: <strong>{energyReward} energie</strong>
+          {isClothingTask && (
+            <span className={styles.faseNote}> (fase {faseNumber})</span>
+          )}
         </div>
-        <p className={styles.confirm}>
-          Heb je deze taak voltooid?
-        </p>
+        <p className={styles.confirm}>Heb je deze taak voltooid?</p>
         <div className={styles.buttons}>
           <button className={styles.cancelBtn} onClick={onCancel} disabled={loading}>
             Annuleren

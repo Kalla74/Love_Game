@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { useRoom } from '../hooks/useRoom'
 import { usePlayer } from '../hooks/usePlayer'
 import { useRoomEvents } from '../hooks/useRealtime'
@@ -17,17 +17,22 @@ interface Props {
 
 export function GamePage({ roomId, playerId, onLeave }: Props) {
   const { room, loading: roomLoading, refetch: refetchRoom } = useRoom(roomId)
-  const { player, loading: playerLoading } = usePlayer(playerId)
+  const { player, loading: playerLoading, refetch: refetchPlayer } = usePlayer(playerId)
+  const [transitioning, setTransitioning] = useState(false)
 
-  const handleRoomEvent = useCallback((eventType: string) => {
+  const handleRoomEvent = useCallback(async (eventType: string) => {
     if (eventType === 'phase_change' || eventType === 'round_advance') {
-      refetchRoom()
+      setTransitioning(true)
+      // Give all DB writes time to settle before re-rendering
+      await new Promise(res => setTimeout(res, 800))
+      await Promise.all([refetchRoom(), refetchPlayer()])
+      setTransitioning(false)
     }
-  }, [refetchRoom])
+  }, [refetchRoom, refetchPlayer])
 
   useRoomEvents({ roomId, onEvent: handleRoomEvent })
 
-  if (roomLoading || playerLoading) return <LoadingSpinner label="Spel laden..." />
+  if (roomLoading || playerLoading || transitioning) return <LoadingSpinner label="Spel laden..." />
   if (!room || !player) return <LoadingSpinner label="Spel laden..." />
 
   if (!room.is_active) return <WinPage roomId={roomId} onLeave={onLeave} />

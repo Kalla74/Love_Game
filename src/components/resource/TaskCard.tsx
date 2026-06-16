@@ -5,6 +5,7 @@ interface Props {
   card: RoundTaskCard
   onChoose: (card: RoundTaskCard) => void
   isChosen: boolean
+  energyReward?: number
 }
 
 const FASE_COLORS: Record<string, string> = {
@@ -13,11 +14,12 @@ const FASE_COLORS: Record<string, string> = {
   '3': '#f59e0b',
 }
 
-export function TaskCard({ card, onChoose, isChosen }: Props) {
+export function TaskCard({ card, onChoose, isChosen, energyReward }: Props) {
   const task = card.task
   if (!task) return null
 
   const color = FASE_COLORS[task.fase] ?? '#7c3aed'
+  const displayReward = energyReward ?? task.energy_reward
 
   return (
     <button
@@ -27,7 +29,7 @@ export function TaskCard({ card, onChoose, isChosen }: Props) {
       disabled={isChosen}
     >
       <div className={styles.reward}>
-        ⚡ {task.energy_reward}
+        ⚡ {displayReward}
       </div>
       <div className={styles.name}>{task.name}</div>
       <div className={styles.desc}>{task.description}</div>
