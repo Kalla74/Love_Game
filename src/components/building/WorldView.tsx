@@ -1,13 +1,9 @@
-import type { Player, PlayerBuilding, Building } from '../../types'
+import type { Player, PlayerBuilding } from '../../types'
 import styles from './WorldView.module.css'
 
 interface Props {
   playerBuildings: PlayerBuilding[]
   player: Player
-}
-
-const BUILDING_EMOJIS: Record<string, string> = {
-  default: '🏠',
 }
 
 export function WorldView({ playerBuildings, player }: Props) {

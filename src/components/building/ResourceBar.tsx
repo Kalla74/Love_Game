@@ -17,7 +17,7 @@ const RESOURCES = [
 export function ResourceBar({ player }: Props) {
   return (
     <div className={styles.bar}>
-      {RESOURCES.map(({ key, icon, label }) => (
+      {RESOURCES.map(({ key, icon }) => (
         <div key={key} className={styles.resource}>
           <span className={styles.icon}>{icon}</span>
           <span className={styles.value}>{player[key]}</span>

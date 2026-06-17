@@ -9,7 +9,7 @@ import { BuildConfirmModal } from '../components/building/BuildConfirmModal'
 import { FaseBadge } from '../components/shared/FaseBadge'
 import { PointsBar } from '../components/shared/PointsBar'
 import { LoadingSpinner } from '../components/shared/LoadingSpinner'
-import { getFaseFromPoints, checkWin, canAffordBuilding, playerOwnsBuilding, calcBuildingProduction } from '../lib/gameLogic'
+import { getFaseFromPoints, checkWin, calcBuildingProduction } from '../lib/gameLogic'
 import type { Room, Player, Building, PlayerBuilding } from '../types'
 import styles from './BuildingPhasePage.module.css'
 

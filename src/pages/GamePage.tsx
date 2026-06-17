@@ -2,12 +2,10 @@ import { useCallback, useState } from 'react'
 import { useRoom } from '../hooks/useRoom'
 import { usePlayer } from '../hooks/usePlayer'
 import { useRoomEvents } from '../hooks/useRealtime'
-import { supabase } from '../lib/supabase'
 import { LoadingSpinner } from '../components/shared/LoadingSpinner'
 import { ResourcePhasePage } from './ResourcePhasePage'
 import { BuildingPhasePage } from './BuildingPhasePage'
 import { WinPage } from './WinPage'
-import styles from './GamePage.module.css'
 
 interface Props {
   roomId: string
