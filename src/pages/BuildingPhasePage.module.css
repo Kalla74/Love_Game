@@ -13,7 +13,14 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   gap: 8px;
 }
-
+.opponentScore {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 4px 10px;
+}
 .round {
   font-size: 13px;
   color: rgba(255, 255, 255, 0.4);
@@ -105,7 +112,7 @@
 .waitTitle {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-muted, #888);
+  color: #fff;
   margin: 0;
 }
 

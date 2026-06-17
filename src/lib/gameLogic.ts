@@ -1,13 +1,13 @@
 import type { Fase, Player, Building, PlayerBuilding } from '../types'
 
 export function getFaseFromPoints(maxPoints: number): Fase {
-  if (maxPoints >= 20) return '3'
+  if (maxPoints >= 50) return '3'
   if (maxPoints >= 10) return '2'
   return '1'
 }
 
 export function checkWin(maxPoints: number): boolean {
-  return maxPoints >= 30
+  return maxPoints >= 200
 }
 
 export function canAffordBuilding(player: Player, building: Building): boolean {

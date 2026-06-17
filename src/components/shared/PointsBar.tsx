@@ -5,8 +5,8 @@ interface Props {
 }
 
 export function PointsBar({ points }: Props) {
-  const nextThreshold = points < 10 ? 10 : points < 20 ? 20 : 30
-  const prevThreshold = points < 10 ? 0 : points < 20 ? 10 : 20
+  const nextThreshold = points < 10 ? 10 : points < 50 ? 50 : 200
+  const prevThreshold = points < 10 ? 0 : points < 50 ? 10 : 50
   const progress = ((points - prevThreshold) / (nextThreshold - prevThreshold)) * 100
 
   return (
